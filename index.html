@@ -5,30 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="This is course project for WPI data visualization.">
-    <meta name="author" content="Yihao Zhou">
-    <link rel="icon" href="../../favicon.ico">
 
     <title>Yelp Data Visualization</title>
 
     <!-- Bootstrap core CSS -->
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <!--<link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">-->
-
     <!-- Custom styles for this template -->
     <link href="dist/css/starter-template.css" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
     <!-- D3.js library -->
-    <script src="http://d3js.org/d3.v4.min.js"></script><!--v4 instead of v3-->
-    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.0/d3.min.js"></script><!--v4 instead of v3-->
+    <!-- <script src="http://d3js.org/topojson.v1.min.js"></script> -->
 
     <!-- js charts for visualization -->
     <script src="dist/js/symbol_map.js"></script>
@@ -46,10 +34,10 @@
     crossorigin=""></script>
 
 
-    <link href='dist/css/project_style.css' rel='stylesheet'/>
-    <link href='l.geosearch.css' rel='stylesheet'/>
-    <script src="l.control.geosearch.js"></script>
-    <script src="l.geosearch.provider.esri.js"></script>
+    <link href='dist/css/style.css' rel='stylesheet'/>
+    <!-- <link href='l.geosearch.css' rel='stylesheet'/> -->
+    <!-- <script src="l.control.geosearch.js"></script> -->
+    <!-- <script src="l.geosearch.provider.esri.js"></script> -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Bree+Serif">
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
@@ -88,12 +76,20 @@
 <!--<p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>-->
 <!--</div>-->
 
-<div id="home" class="container-fluid">
-    <div id="map"></div>
-    <div id="suggestionpanel"></div>
-    <div id="bottompanel"></div>
-    <div id="rightpanel"></div>
-    <div id="review"></div>
+<div id="home">
+    <div class="category-container">
+        Category Selector
+    </div>
+    <div class="map-container">
+        <div id="map"></div>
+    </div>
+    <div class="info-container">Restaurant Info</div>
+    <div class="wordmap-container">Word Map</div>
+    <div class="userstat-container">User Stat</div>
+    <!-- <div id="suggestionpanel"></div> -->
+    <!-- <div id="bottompanel"></div> -->
+    <!-- <div id="rightpanel"></div> -->
+    <!-- <div id="review"></div> -->
 </div>
 
 
@@ -138,10 +134,10 @@
         .style("bottom",  height_tree/2 + "px")
         .style("opacity",0);
 
-    d3.select("#map")
-        .style("width", +(width_map) + "px")
-        .style("height", +(height_map-210) + "px")
-        .style("left", "0px");
+    // d3.select("#map")
+    //     .style("width", +(width_map) + "px")
+    //     .style("height", +(height_map-210) + "px")
+    //     .style("left", "0px");
 
     d3.select("#rightpanel")
         .style("width", +right_panel_width + "px")
@@ -743,6 +739,6 @@
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 <script src="dist/js/bootstrap.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+<!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
 </body>
 </html>
