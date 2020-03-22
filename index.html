@@ -41,21 +41,20 @@
     <script src="dist/js/viewport.js"></script>
 
     <!-- js library for map -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
 
 
     <link href='dist/css/project_style.css' rel='stylesheet'/>
     <link href='l.geosearch.css' rel='stylesheet'/>
     <script src="l.control.geosearch.js"></script>
     <script src="l.geosearch.provider.esri.js"></script>
-    <link rel="stylesheet" type="text/css"
-          href="https://fonts.googleapis.com/css?family=Bree+Serif">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Bree+Serif">
 
-    <style type="text/css">
-        @import url(//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css);
-    </style>
-
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin=""/>
 </head>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -180,11 +179,19 @@
 
 
     // var map = new L.Map("map", {center: [45.52, -73.6], zoom: 12})  //Montreal
-    var map = new L.Map("map", {center: [33.44, -112.07], zoom: 12})	//Phoenix coordinate
-        .addLayer(new L.TileLayer('http://{s}.sm.mapstack.stamen.com/(toner-lite,$fff[difference],$fff[@23],$fff[hsl-saturation@20])/{z}/{x}/{y}.png')
-        );
+    var map = new L.Map("map", {center: [33.44, -112.07], zoom: 12});	//Phoenix coordinate
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		id: 'mapbox/streets-v11',
+		tileSize: 512,
+		zoomOffset: -1
+	}).addTo(map);
+        // .addLayer(new L.TileLayer('http://{s}.sm.mapstack.stamen.com/(toner-lite,$fff[difference],$fff[@23],$fff[hsl-saturation@20])/{z}/{x}/{y}.png'));
 
-    map._initPathRoot()
+    // map._initPathRoot()
 
     var svg = d3.select("#map").select("svg").attr("class", "map_svg")
     //.attr("width", width_map)
