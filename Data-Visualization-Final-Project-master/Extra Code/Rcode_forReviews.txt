@@ -1,0 +1,143 @@
+> View(Business_Phoenix_final)
+> merged_business_review = merge(Business_Phoenix_final,review,by="Business_id")
+Error in fix.by(by.x, x) : 'by' must specify a uniquely valid column
+> merged_business_review = merge(Business_Phoenix_final,review,by="business_id")
+> View(merged_business_review)
+> final = df[ , -which(names(merged_business_review) %in% c("postal_code","city"))]
+Error in df[, -which(names(merged_business_review) %in% c("postal_code",  : 
+  incorrect number of dimensions
+> R> df[ , -which(names(merged_business_review) %in% c("postal_code","city"))]
+Error: object 'R' not found
+> final = subset(merged_business_review, select = -c(postal_code,city))
+> View(final)
+> final = subset(final, select = -c(stars.x,latitude,RestuarantsPriceRange2,categories,name,BusinessAcceptsCreditCards,is_open,address,Ambience,longitude,review_count,state,hours,funny,useful,review_id,stars.y,date,cool))
+Error in eval(substitute(select), nl, parent.frame()) : 
+  object 'RestuarantsPriceRange2' not found
+> final = subset(final, select = -c(stars.x,latitude,categories,name,BusinessAcceptsCreditCards,is_open,address,Ambience,longitude,review_count,state,hours,funny,useful,review_id,stars.y,date,cool))
+> final = subset(final, select = -c(RestaurantsPriceRange2))
+> write.csv(final,"merged_business_review.csv", row.names = TRUE)
+> View(review)
+> View(review)
+> review = subset(review, select = -c(review_id,cool,date,funny,useful))
+> write.csv(review,"trimmed_review.csv",row.names = TRUE)
+> 
+> library(readr)
+> user_fromtipbusinessmerge <- read_csv("user_fromtipbusinessmerge.csv")
+Parsed with column specification:
+cols(
+  user_id = col_character()
+)
+> View(user_fromtipbusinessmerge)
+> merged_user_review = merge(user_fromtipbusinessmerge,review,by="user_id")
+> View(merged_user_review)
+> View(review)
+> remove(review)
+> library(readr)
+> review <- read_csv("review.csv")
+Parsed with column specification:
+cols(
+  funny = col_double(),
+  useful = col_double(),
+  review_id = col_character(),
+  text = col_character(),
+  business_id = col_character(),
+  stars = col_double(),
+  date = col_datetime(format = ""),
+  user_id = col_character(),
+  cool = col_double()
+)
+|========================================================================================================================================| 100% 4501 MB
+> View(review)
+> View(review)
+> colRanges(review$suseful, na.rm = FALSE, dims = 1, n = NULL)
+Error in colRanges(review$suseful, na.rm = FALSE, dims = 1, n = NULL) : 
+  could not find function "colRanges"
+> colRanges(review$suseful)
+Error in colRanges(review$suseful) : could not find function "colRanges"
+> colRanges(review$useful)
+Error in colRanges(review$useful) : could not find function "colRanges"
+> colrange(review$useful)
+Error in colrange(review$useful) : could not find function "colrange"
+> library(Rcpp)
+> library(Rcpp)
+> colrange(review$useful)
+Error in colrange(review$useful) : could not find function "colrange"
+> colRanges(review$useful)
+Error in colRanges(review$useful) : could not find function "colRanges"
+> library(RcppZiggurat)
+Error in library(RcppZiggurat) : 
+  there is no package called ‘RcppZiggurat’
+> new_frame<- review%>% filter(review$useful %in% (3:7))
+Error in review %>% filter(review$useful %in% (3:7)) : 
+  could not find function "%>%"
+> new_frame<- review %>% filter(review$useful %in% (3:7))
+Error in review %>% filter(review$useful %in% (3:7)) : 
+  could not find function "%>%"
+> new_frame<- review %>% filter(useful %in% (3:7))
+Error in review %>% filter(useful %in% (3:7)) : 
+  could not find function "%>%"
+> library(dplyr)
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+> new_frame<- review %>% filter(useful %in% (3:7))
+> View(new_frame)
+> remove(new_frame)
+> new_frame<- review %>% filter(date >= as.Date("2016-01-01"))
+Warning message:
+Incompatible methods ("Ops.POSIXt", "Ops.Date") for ">=" 
+> View(new_frame)
+> library("lubridate")
+Error in library("lubridate") : there is no package called ‘lubridate’
+> new_frame<- review %>% filter(date >= as.character.POSIXt("2016-01-01"))
+> View(new_frame)
+> new_frame<- review %>% filter(date >= as.character.POSIXt("2017-01-01"))
+
+
+
+
+> new_frame<- review %>% filter(date >= as.character.POSIXt("2018-01-01"))
+> new_frame<- review %>% filter(date >= as.character.POSIXt("2017-01-01"))
+> view(Business_Phoenix_final)
+Error in view(Business_Phoenix_final) : could not find function "view"
+> View(Business_Phoenix_final)
+> View(final)
+> remove(final)
+> remove(merged_business_review)
+> remove(merged_user_review)
+> remove(new_frame)
+> remove(user_fromtipbusinessmerge)
+> new_frame<- review %>% filter(date >= as.character.POSIXt("2017-01-01"))
+> write.csv(new_frame,"trimmed_review_after2017.csv",row.names = TRUE)
+> library(readr)
+> user_fromtipbusinessmerge <- read_csv("user_fromtipbusinessmerge.csv")
+Parsed with column specification:
+cols(
+  user_id = col_character()
+)
+> View(user_fromtipbusinessmerge)
+> merged_business_review = merge(Business_Phoenix_final,new_frame,by="business_id")
+> View(merged_business_review)
+> merged_business_review = subset(merged_business_review, select = -c(postal_code,city,stars.x,RestaurantsPriceRange2,categories,name,BusinessAcceptsCreditCards))
+> merged_business_review = subset(merged_business_review, select = -c(latitude,is_open,address,Ambience,longitude,review_count,state,hours))
+> merged_business_review = subset(merged_business_review, select = -c(funny,useful,review_id,stars.y,cool))
+> write.csv(merged_business_review,"merged_business_review.csv",row.names = TRUE)
+> merged_user_review = merge(user_fromtipbusinessmerge,new_frame,by="user_id")
+> View(merged_user_review)
+> merged_user_review = subset(merged_user_review, select = -c(cool,funny))
+> merged_user_review = subset(merged_user_review, select = -c(stars,review_id,useful))
+> write.csv(merged_user_review,"merged_user_review.csv",row.names = TRUE)
+
+
+//install filter
+> library(magrittr) # needs to be run every time you start R and want to use %>%
+> library(dplyr)    # alternatively, this also loads %>%
+
