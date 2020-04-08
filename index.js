@@ -18,3 +18,52 @@ for (i = 0; i < YELP_DATA.length; i++) {
         opacity: 1,
     }).addTo(map);
 }
+
+var rateStar = {
+    1: "★",
+    2: "★★",
+    3: "★★★",
+    4: "★★★★",
+    5: "★★★★★",
+    1.5: "★☆",
+    2.5: "★★☆",
+    3.5: "★★★☆",
+    4.5: "★★★★☆"
+};
+
+var mapSvg = d3.select("#map").select("svg").attr("class", "map_svg");
+
+mapSvg.selectAll("path")
+    .data(YELP_DATA)
+    .on("mouseover", function(d) {
+        updateRestaurantInfo(d);
+    });
+
+function updateRestaurantInfo(data) {
+    var infoContainer = d3.select(".info-container");
+
+    infoContainer.select(".name").remove();
+    infoContainer.append("h2")
+        .attr("class", "name")
+        .text(data.name);
+    
+    infoContainer.select(".rating").remove();
+    infoContainer.append("div")
+        .attr("class", "rating")
+        .html("<strong>Rate: </strong>" + rateStar[data.stars]);
+
+    infoContainer.select(".reviews").remove();
+    infoContainer.append("div")
+        .attr("class", "reviews")
+        .html("<strong>Reviews: </strong>" + data.review_count);
+
+    infoContainer.select(".category").remove();
+    infoContainer.append("div")
+        .attr("class", "category")
+        .html("<strong>Category: </strong>" + data.categories);
+    
+    infoContainer.select(".address").remove();
+    infoContainer.append("div")
+        .attr("class", "address")
+        .html("<strong>Address: </strong>" + data.address);
+}
