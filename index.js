@@ -96,7 +96,7 @@ var days = [
 ];
 
 var heatmapWidth = 300;
-var heatmapHeight = 200;
+var heatmapHeight = 150;
 
 var xScale = d3.scaleBand()
     .range([0, heatmapWidth - 30])
@@ -109,16 +109,14 @@ var yScale = d3.scaleBand()
     .padding(0.01);
 
 var colorScale = d3.scaleLinear()
-    .range(["white", "#69b3a2"])
-    .domain([1, 10]);
+    .range(["#f2f7f6", "#0494e9"])
+    .domain([1, 50]);
 
 var tooltip = d3.select("body")
     .append("div")
     .attr("class", "tooltip");
 
 function updateCheckInInfo(data) {
-
-    console.log(data);
 
     var heatmapSvg = d3.select(".info-container")
         .append("div")
@@ -147,7 +145,6 @@ function updateCheckInInfo(data) {
         );
     
     data = JSON.parse(data);
-    // data = {"23:6": 10, "19:2": 6, "6:1": 3, "5:2": 2, "2:2": 5, "5:5": 3};
     data = Object.entries(data);
 
     heatmapSvg.selectAll()
@@ -158,7 +155,7 @@ function updateCheckInInfo(data) {
             return xScale(getHour(d[0]));
         })
         .attr("y", function(d) {
-            return yScale(getDay(d[0]));
+            return yScale(6 - getDay(d[0]));
         })
         .attr("width", xScale.bandwidth())
         .attr("height", yScale.bandwidth())
