@@ -2,6 +2,7 @@ import * as d3 from "d3";
 import Map from "./map";
 import HeatMap from "./heatmap";
 import User from "./user";
+import BubbleChart from "./bubble-chart";
 
 const Restaurant = {
     rateStar: {
@@ -22,6 +23,7 @@ const Restaurant = {
                 this.updateInfo(d);
                 HeatMap.updateInfo(d["checkin-info"]);
                 User.updateInfo(USER_DATA[d["business_id"]]);
+                BubbleChart.updateInfo(d["categories"]);
             });
     },
     updateInfo: function(data) {

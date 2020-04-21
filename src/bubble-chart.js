@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 
-const bubbleChart = {
+const BubbleChart = {
     color: {},
     diameter: 500,
     bubble: {},
@@ -9,6 +9,7 @@ const bubbleChart = {
     height: 0,
     data: {},
     format: {},
+    root: {},
     load: function() {
         this.data = this.refactorData(FOOD);
 
@@ -20,9 +21,7 @@ const bubbleChart = {
         this.color = d3.scaleOrdinal(this.data.map(d => d.name), d3.schemeCategory10);
         this.format = d3.format(",d");
                     
-        const root = this.pack(this.data);
-        
-        console.log(root.leaves());
+        this.root = this.pack(this.data);
 
         this.svg = d3.select(".bubble-chart-container")
             .append("svg")
@@ -33,13 +32,13 @@ const bubbleChart = {
             .attr("height", this.height);
 
         const leaf = this.svg.selectAll("g")
-            .data(root.leaves())
+            .data(this.root.leaves())
             .join("g")
             .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`);
 
         leaf.append("circle")
             .attr("r", d => d.r)
-            .attr("fill-opacity", 0.7)
+            .attr("fill-opacity", 0.8)
             .attr("fill", d => this.color(d.data.name));
 
         leaf.append("text")
@@ -62,7 +61,15 @@ const bubbleChart = {
             (d3.hierarchy({children: data})
             .sum(d => d.value));
     },
-    updateInfo: function() {
+    updateInfo: function(data) {
+        const leaf = this.svg.selectAll("g")
+            .data(this.root.leaves());
+
+        leaf.selectAll("circle")
+            .attr("fill-opacity", d => (-1 !== data.indexOf(d.data.name)) ? 0.8 : 0.2);
+        
+        leaf.selectAll("text")
+            .attr("fill-opacity", d => (-1 !== data.indexOf(d.data.name)) ? 0.8 : 0.2);
     },
     refactorData: function(data) {
         data = Object.entries(data);
@@ -71,4 +78,4 @@ const bubbleChart = {
     }
 };
 
-export default bubbleChart;
+export default BubbleChart;
