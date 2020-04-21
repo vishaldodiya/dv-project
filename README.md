@@ -19,7 +19,7 @@ In this project, we visualized restaurants data in Phoenix. We want to provide a
 We first put all restaurants data on map of phoenix. The color of the circles is mapped to average rating of the restaurant. User is able to drag and zoom the map. The treemap and histogram on the bottom will be updated on map reset, and they are coordinated with the number of restaurants within the screen. We add this feature because location is often an important factor when picking restaurants. People are interested to know what is around. 
 
 ### bubble chart
-![map](img/treemap_1.png)
+![map](img/bubble_chart_1.png)
 ![map](img/treemap_2.png)
 The bottom panel offers the filter functions. We use a treemap to filter category. The size of the treemap leaves are mapped to the number of restaurants that have this category label. The benefit of this design is that it is a filter but at the same time, user is able to have a bigger picture of the distribution of the businesses. Click an element in the treemap will filter restaurants on the map, and the histogram will update accordingly. User will also see a suggestion board, which lists the most popular restaurants within the filtered data. The suggestion board gives developer an opportunity to apply recommendation algorithms. For example, we can suggest newly opened restaurants with high ratings but fewer reviews.
 
@@ -40,6 +40,7 @@ When you click on a restaurant in the map, it will bring up a panel from the rig
 This is our final design and all the interaction part were described in the previous sections.
 
 ###references
+https://www.yelp.com/dataset/documentation/main
 
 
 
