@@ -15,7 +15,7 @@ In this project, we visualized restaurants data in Phoenix. We want to provide a
 
 ### map functions
 
-![map](img/map.png)
+![map](img/Phx_map.png)
 We first put all restaurants data on map of phoenix. The color of the circles is mapped to average rating of the restaurant. User is able to drag and zoom the map. The treemap and histogram on the bottom will be updated on map reset, and they are coordinated with the number of restaurants within the screen. We add this feature because location is often an important factor when picking restaurants. People are interested to know what is around. 
 
 ### bubble chart
@@ -27,11 +27,11 @@ The bottom panel offers the filter functions. We use a treemap to filter categor
 The price and star rating filter coordinate with the treemap, histogram and map. When we interact with these two filters, the size of the green rectangles and the circles on the map will change accordingly, so does the histogram. The multiple choice price button works similarly.The green rectangles in the treemap means restaurants satisfy the filter and the grey rectangles are the ones that do not. With the help of these two filter and treemap, we could know the price and star distribution of the restaurants in one category which could give user a general information of restaurants in this area.There are 3 filters here, category, price and average rating. We design it in a way that either one can be the primary filter. 
 
 ###historgram
-![map](img/histogram.png)
+![map](img/Phx_histogram.png)
 The histogram on the bottom left shows a distribution of number of restaurants over number of reviews. Number of reviews of a certain restaurant is a strong indicator of how average rating reflects the reality. The histogram also acts as a 4th filter. Clicking on a bar will select restaurants that have larger number of reviews than a certain number, and the map will be updated
 
 ###Intelligence
-![map](img/business_info.png)
+![map](img/Phx_business_info.png)
 ![map](img/business_info_1.png)
 When you click on a restaurant in the map, it will bring up a panel from the right side of the screen showing the detail information about this restaurant, including name, rating stars, price range, address, and categories. This is the checkin heatmap.  It shows the number of checkins in a week. Each rectangle represents number of checkins in a hour. We can see what time in a day and what day in a week this restaurant is busy so we can maybe avoid the peak hour. We implemented a rating distribution barchart. It shows the percentage of reviews in each rating level. When you click on the bar it will bring up a second panel listing all the reviews in this rating. When finish reading, you can simply click on the review panel to hide the review. Or you can click on the map to hide both review and detail info panel.
 
