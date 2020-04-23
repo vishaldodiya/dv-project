@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import Map from "./map";
 
 const BubbleChart = {
     color: {},
@@ -52,7 +53,16 @@ const BubbleChart = {
         leaf.append("title")
             .text(d => d.data.name);
 
-        return this.svg.node();
+        Map.svg.selectAll("path")
+            .on("mouseout", (d) => {
+                this.reset();
+            });
+        
+        leaf.selectAll("circle")
+            .on("mouseover", (d) => {
+                Map.filterMarker(d.data.name);
+            })
+            .on("mouseout", () => Map.resetMarker());
     },
     pack: function(data) {
         return d3.pack()
@@ -66,15 +76,24 @@ const BubbleChart = {
             .data(this.root.leaves());
 
         leaf.selectAll("circle")
-            .attr("fill-opacity", d => (-1 !== data.indexOf(d.data.name)) ? 0.8 : 0.2);
+            .attr("fill-opacity", d => (-1 !== data.indexOf(d.data.name.replace(" N ", " & "))) ? 0.8 : 0.2);
         
         leaf.selectAll("text")
-            .attr("fill-opacity", d => (-1 !== data.indexOf(d.data.name)) ? 0.8 : 0.2);
+            .attr("fill-opacity", d => (-1 !== data.indexOf(d.data.name.replace(" N ", " & "))) ? 0.8 : 0.2);
     },
     refactorData: function(data) {
         data = Object.entries(data);
 
         return data.map(d => ({name: d[0], value: d[1].count}));
+    },
+    reset: function() {
+        const leaf = this.svg.selectAll("g");
+
+        leaf.selectAll("circle")
+            .attr("fill-opacity", 0.8);
+
+        leaf.selectAll("text")
+            .attr("fill-opacity", 0.8);
     }
 };
 

@@ -30,6 +30,18 @@ const Map = {
         }
 
         this.svg = d3.select("#map").select("svg").attr("class", "map_svg");
+    },
+    filterMarker: function(category) {
+
+        this.svg.selectAll("path")
+            .data(YELP_DATA)
+            .attr("fill-opacity", (d) => (-1 !== d.categories.indexOf(category.replace(" N ", " & ")) ? 0.2 : 0))
+            .attr("stroke-opacity", (d) => (-1 !== d.categories.indexOf(category.replace(" N ", " & ")) ? 1 : 0));
+    },
+    resetMarker: function() {
+        this.svg.selectAll("path")
+            .attr("fill-opacity", (d) => 0.2)
+            .attr("stroke-opacity", (d) => 1);
     }
 }
 
