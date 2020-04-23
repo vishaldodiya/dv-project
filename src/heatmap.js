@@ -28,6 +28,10 @@ const HeatMap = {
     colorScale: {},
     tooltip: {},
     load: function() {
+
+        const container = document.querySelector(".heatmap");
+        this.width = container.getBoundingClientRect().width;
+        this.height = container.getBoundingClientRect().height;
         this.times = this.times.map((value, index) => index);
         this.days = this.days.map((value, index) => index);
 
@@ -48,11 +52,8 @@ const HeatMap = {
         this.tooltip = d3.select("body")
             .append("div")
             .attr("class", "tooltip");
-    },
-    updateInfo: function(data) {
-        this.svg = d3.select(".info-container")
-            .append("div")
-            .attr("class", "heatmap")
+        
+        this.svg = d3.select(".heatmap")
             .append("svg")
             .attr("width", this.width)
             .attr("height", this.height)
@@ -73,15 +74,23 @@ const HeatMap = {
                 d3.axisLeft(this.yScale).tickFormat((d) => this.dayLabels[6 - d])
                 .tickSize(1)
             );
+        
+        this.updateInfo(YELP_DATA[0]["checkin-info"]);
+        this.updateInfo(YELP_DATA[0]["checkin-info"]);
+    },
+    updateInfo: function(data) {
     
         data = JSON.parse(data);
         data = Object.entries(data);
 
-        this.svg.selectAll()
-            .data(data)
-            .enter()
-            .append("rect")
-            .attr("x", (d) => this.xScale(this.getHour(d[0])))
+        const rects = this.svg.selectAll("rect")
+            .data(data);
+        
+        rects.exit().remove();
+
+        rects.enter().append("rect");
+
+        rects.attr("x", (d) => this.xScale(this.getHour(d[0])))
             .attr("y", (d) => this.yScale(6 - this.getDay(d[0])))
             .attr("width", this.xScale.bandwidth())
             .attr("height", this.yScale.bandwidth())

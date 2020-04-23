@@ -25,6 +25,8 @@ const Restaurant = {
                 User.updateInfo(USER_DATA[d["business_id"]]);
                 BubbleChart.updateInfo(d["categories"]);
             });
+        
+        this.updateInfo(YELP_DATA[0]);
     },
     updateInfo: function(data) {
         const infoContainer = d3.select(".info-container");
@@ -53,8 +55,6 @@ const Restaurant = {
         infoContainer.append("div")
             .attr("class", "address")
             .html("<strong>Address: </strong>" + data.full_address);
-        
-        infoContainer.select(".heatmap").remove();
     }
 }
 

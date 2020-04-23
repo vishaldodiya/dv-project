@@ -38,7 +38,8 @@
 
 .info-container {
     padding: 0 10px;
-    grid-row: span 2;
+    grid-column: 3;
+    grid-row: 1;
 }
 
 .info-container h2 {
@@ -53,4 +54,9 @@
 .category-container {
     grid-column: 4 / 4;
     grid-row: 1 / span 4;
+}
+
+.heatmap {
+    grid-column: 3;
+    grid-row: 2;
 }

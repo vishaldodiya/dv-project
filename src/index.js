@@ -6,9 +6,7 @@ import bubbleChart from "./bubble-chart";
 
 Map.load();
 Map.plotMarker();
-
-Restaurant.load();
-
 HeatMap.load();
-User.load();
 bubbleChart.load();
+User.load();
+Restaurant.load();

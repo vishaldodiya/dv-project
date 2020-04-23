@@ -4,6 +4,7 @@ const User = {
     svg: {},
     width: 300,
     height: 300,
+    padding: 30,
     labels: [
         "Yelp Age",
         "Reviews",
@@ -21,32 +22,37 @@ const User = {
     yScale: {},
     xScale: {},
     load: function() {
+
+        const container = document.querySelector(".userstat-container");
+        this.width = container.getBoundingClientRect().width;
+        this.height = container.getBoundingClientRect().height;
+
         this.yelpAgeScale = d3.scaleLinear()
-            .range([1, this.height - 15])
+            .range([1, this.height - this.padding])
             .domain([3.85, 10.81]);
         
         this.reviewsScale = d3.scaleLinear()
-            .range([1, this.height - 15])
+            .range([1, this.height - this.padding])
             .domain([6.07, 633.42]);
 
         this.coolnessScale = d3.scaleLinear()
-            .range([1, this.height - 15])
+            .range([1, this.height - this.padding])
             .domain([0.75, 5518]);
         
         this.fansScale = d3.scaleLinear()
-            .range([0, this.height - 15])
+            .range([0, this.height - this.padding])
             .domain([0, 89.75]);
         
         this.starsScale = d3.scaleLinear()
-            .range([1, this.height - 15])
+            .range([1, this.height - this.padding])
             .domain([1.57, 4.72]);
         
         this.usefulScale = d3.scaleLinear()
-            .range([1, this.height - 15])
+            .range([1, this.height - this.padding])
             .domain([3, 6487.5]);
         
         this.yScale = d3.scaleLinear()
-            .range([0, this.height - 15])
+            .range([0, this.height - this.padding])
             .domain([0, 100]);
 
         this.xScale = d3.scaleBand()
@@ -67,16 +73,18 @@ const User = {
             .call(d3.axisLeft(this.yScale).tickSize(2));
         
         this.svg.append("g")
-            .attr("transform", `translate(5, ${this.height - 15})`)
+            .attr("transform", `translate(5, ${this.height - this.padding})`)
             .call(d3.axisBottom(this.xScale).tickFormat((d) => d).tickSize(2));
+        
+        this.updateInfo(USER_DATA[YELP_DATA[0]["business_id"]]);
+        this.updateInfo(USER_DATA[YELP_DATA[0]["business_id"]]);
     },
     updateInfo: function(data) {
-        
         data = Object.entries(data);
 
         let rects = this.svg.selectAll("rect")
             .data(data);
-        
+
         rects.exit().remove();
 
         rects.enter().append("rect");
@@ -84,7 +92,7 @@ const User = {
         rects.transition()
             .duration(500)
             .attr("x", (d) => this.xScale(this.getLabel(d[0])) + 5)
-            .attr("y", (d) => (this.height - this.getScaledValue(d[0], d[1]) - 15))
+            .attr("y", (d) => (this.height - this.getScaledValue(d[0], d[1]) - this.padding))
             .attr("width", this.xScale.bandwidth())
             .attr("height", (d) => this.getScaledValue(d[0], d[1]));
     },

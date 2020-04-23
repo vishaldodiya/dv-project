@@ -35,6 +35,7 @@ const BubbleChart = {
         const leaf = this.svg.selectAll("g")
             .data(this.root.leaves())
             .join("g")
+            .style("cursor", "pointer")
             .attr("transform", d => `translate(${d.x + 1},${d.y + 1})`);
 
         leaf.append("circle")
@@ -58,8 +59,7 @@ const BubbleChart = {
                 this.reset();
             });
         
-        leaf.selectAll("circle")
-            .on("mouseover", (d) => {
+        leaf.on("mouseover", (d) => {
                 Map.filterMarker(d.data.name);
             })
             .on("mouseout", () => Map.resetMarker());
