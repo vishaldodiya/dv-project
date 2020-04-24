@@ -37,13 +37,57 @@
 }
 
 .info-container {
-    padding: 0 10px;
     grid-column: 3;
     grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid;
+    border-radius: 5px;
+    margin: 0 10px;
 }
 
-.info-container h2 {
+.info-container .stats {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid;
+}
+
+.info-container .stats .reviews {
+    padding: 5px;
+    width: 100%;
+}
+
+.info-container .stats .rating {
+    padding: 5px;
+    width: 100%;
+    border-right: 1px solid;
+}
+
+.info-container .category {
+    padding: 5px 0;
+}
+
+.info-container .category span {
+    padding: 2px 5px;
+    border-radius: 30px;
+    border: 1px solid;
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: 2px;
+}
+
+.info-container .address {
+    margin-top: auto;
+    padding: 5px;
+    border-top: 1px solid;
+}
+
+.info-container .name {
     margin-top: 0;
+    margin-bottom: 0;
+    border-bottom: 1px solid;
+    padding: 0 5px;
 }
 
 .userstat-container {
@@ -59,4 +103,12 @@
 .heatmap {
     grid-column: 3;
     grid-row: 2;
+}
+
+.bubble-chart-container svg circle {
+    transition: all 0.25s cubic-bezier(0.21, 1.46, 0.87, 1.01);
+}
+
+.bubble-chart-container svg circle:hover {
+    transform: scale(1.1);
 }

@@ -36,25 +36,27 @@ const Restaurant = {
             .attr("class", "name")
             .text(data.name);
         
-        infoContainer.select(".rating").remove();
-        infoContainer.append("div")
+        infoContainer.select(".stats").remove();
+        const stats = infoContainer.append("div")
+            .attr("class", "stats");
+        
+        stats.append("div")
             .attr("class", "rating")
-            .html("<strong>Rate: </strong>" + this.rateStar[data.stars]);
-    
-        infoContainer.select(".reviews").remove();
-        infoContainer.append("div")
+            .html(this.rateStar[data.stars]);
+        
+        stats.append("div")
             .attr("class", "reviews")
-            .html("<strong>Reviews: </strong>" + data.review_count);
+            .html(data.review_count);
     
         infoContainer.select(".category").remove();
         infoContainer.append("div")
             .attr("class", "category")
-            .html("<strong>Category: </strong>" + data.categories);
+            .html(data.categories.split(", ").reduce((acc, d) => acc + `<span>${d}</span>`, ""));
         
         infoContainer.select(".address").remove();
         infoContainer.append("div")
             .attr("class", "address")
-            .html("<strong>Address: </strong>" + data.full_address);
+            .html(data.full_address);
     }
 }
 
