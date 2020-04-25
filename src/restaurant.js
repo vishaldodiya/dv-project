@@ -3,6 +3,7 @@ import Map from "./map";
 import HeatMap from "./heatmap";
 import User from "./user";
 import BubbleChart from "./bubble-chart";
+import Slider from "./slider";
 
 const Restaurant = {
     rateStar: {
@@ -21,9 +22,9 @@ const Restaurant = {
             .data(YELP_DATA)
             .on("mouseover", (d) => {
                 this.updateInfo(d);
-                HeatMap.updateInfo(d["checkin-info"]);
-                User.updateInfo(USER_DATA[d["business_id"]]);
-                BubbleChart.updateInfo(d["categories"]);
+                HeatMap.updateInfo(d[1]["checkin-info"]);
+                User.updateInfo(USER_DATA[d[0]]);
+                BubbleChart.updateInfo(d[1]["categories"]);
             });
         
         this.updateInfo(YELP_DATA[0]);
@@ -34,7 +35,7 @@ const Restaurant = {
         infoContainer.select(".name").remove();
         infoContainer.append("h2")
             .attr("class", "name")
-            .text(data.name);
+            .text(data[1].name);
         
         infoContainer.select(".stats").remove();
         const stats = infoContainer.append("div")
@@ -42,21 +43,25 @@ const Restaurant = {
         
         stats.append("div")
             .attr("class", "rating")
-            .html(this.rateStar[data.stars]);
+            .html(this.rateStar[data[1].stars]);
         
         stats.append("div")
             .attr("class", "reviews")
-            .html(`${data.review_count} Reviews`);
+            .html(`${data[1].review_count} Reviews`);
+        
+        stats.append("div")
+            .attr("class", "price")
+            .html(Slider.data[data[1]["RestaurantPriceRange"]]);
     
         infoContainer.select(".category").remove();
         infoContainer.append("div")
             .attr("class", "category")
-            .html(data.categories.split(", ").reduce((acc, d) => acc + `<span>${d}</span>`, ""));
+            .html(data[1].categories.split(", ").reduce((acc, d) => acc + `<span>${d}</span>`, ""));
         
         infoContainer.select(".address").remove();
         infoContainer.append("div")
             .attr("class", "address")
-            .html(data.full_address);
+            .html(data[1].full_address);
     }
 }
 

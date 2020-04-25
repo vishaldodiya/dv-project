@@ -66,13 +66,15 @@ const BubbleChart = {
             let nodes = leaf.nodes();
 
             if ("black" == nodes[e].children[0].getAttribute("stroke")) {
+                Map.filter.category = "";
                 Map.resetMarker();
                 leaf.select("circle[stroke=black]").attr("stroke", "none");
                 leaf.on("mouseover", this.onMouseOver);
                 leaf.on("mouseout", this.onMouseOut);
             } else {
                 leaf.select("circle[stroke=black]").attr("stroke", "none");
-                Map.filterMarker(d.data.name);
+                Map.filter.category = d.data.name;
+                Map.filterMarker();
                 nodes[e].children[0].setAttribute("stroke", "black");
                 nodes[e].children[0].setAttribute("stroke-width", "3");
                 leaf.on("mouseover", null);
@@ -112,10 +114,12 @@ const BubbleChart = {
             .attr("fill-opacity", 0.8);
     },
     onMouseOver: function(d) {
-        Map.filterMarker(d.data.name);
+        Map.filter.category = d.data.name;
+        Map.filterMarker();
     },
     onMouseOut: function(d) {
-        Map.resetMarker()
+        Map.filter.category = "";
+        Map.filterMarker();
     }
 };
 

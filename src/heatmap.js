@@ -82,8 +82,8 @@ const HeatMap = {
                 .tickSize(1)
             );
         
-        this.updateInfo(YELP_DATA[0]["checkin-info"]);
-        this.updateInfo(YELP_DATA[0]["checkin-info"]);
+        this.updateInfo(YELP_DATA[0][1]["checkin-info"]);
+        this.updateInfo(YELP_DATA[0][1]["checkin-info"]);
     },
     updateInfo: function(data) {
     

@@ -4,6 +4,10 @@ import * as d3 from "d3";
 const Map = {
     map: {},
     svg: {},
+    filter: {
+        "category": "",
+        "price": 0
+    },
     load: function() {
 
         this.map = new L.map("map", {renderer: L.svg(), center: [33.44, -112.07], zoom: 12});
@@ -20,7 +24,7 @@ const Map = {
     },
     plotMarker: function() {
         for (let i = 0; i < YELP_DATA.length; i++) {
-            L.circleMarker(L.latLng(YELP_DATA[i]["latitude"], YELP_DATA[i]["longitude"]), {
+            L.circleMarker(L.latLng(YELP_DATA[i][1]["latitude"], YELP_DATA[i][1]["longitude"]), {
                 pane: "overlayPane",
                 radius: 5,
                 fillColor: "#ff0000",
@@ -31,19 +35,32 @@ const Map = {
 
         this.svg = d3.select("#map").select("svg").attr("class", "map_svg");
     },
-    filterMarker: function(category) {
-
+    filterMarker: function() {
         this.svg.selectAll("path")
             .data(YELP_DATA)
-            .attr("fill-opacity", (d) => (-1 !== d.categories.indexOf(category.replace(" N ", " & ")) ? 0.2 : 0))
-            .attr("stroke-opacity", (d) => (-1 !== d.categories.indexOf(category.replace(" N ", " & ")) ? 1 : 0))
-            .attr("visibility", (d) => (-1 !== d.categories.indexOf(category.replace(" N ", " & ")) ? "visible" : "hidden"));
+            .attr("fill-opacity", (d) => (this.shouldShow(d) ? 0.2 : 0))
+            .attr("stroke-opacity", (d) => (this.shouldShow(d) ? 1 : 0))
+            .attr("visibility", (d) => (this.shouldShow(d) ? "visible" : "hidden"));
     },
     resetMarker: function() {
         this.svg.selectAll("path")
             .attr("fill-opacity", (d) => 0.2)
             .attr("stroke-opacity", (d) => 1)
             .attr("visibility", "visible");
+    },
+    shouldShow: function(data) {
+
+        if (this.filter.category !== "" && this.filter.price > 0) {
+            return (-1 !== data[1].categories.indexOf(this.filter.category.replace(" N ", " & ")) && (data[1]["RestaurantPriceRange"] == this.filter.price));
+        } else if (this.filter.category !== "" || this.filter.price > 0) {
+            return (
+                this.filter.category !== "" && -1 !== data[1].categories.indexOf(this.filter.category.replace(" N ", " & "))
+                ||
+                ( this.filter.price > 0 && data[1]["RestaurantPriceRange"] == this.filter.price)
+            )
+        } else {
+            return true;
+        }
     }
 }
 

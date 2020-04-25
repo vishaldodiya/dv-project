@@ -85,8 +85,8 @@ const User = {
             .attr("transform", `translate(5, ${this.height - this.padding})`)
             .call(d3.axisBottom(this.xScale).tickFormat((d) => d).tickSize(2));
         
-        this.updateInfo(USER_DATA[YELP_DATA[0]["business_id"]]);
-        this.updateInfo(USER_DATA[YELP_DATA[0]["business_id"]]);
+        this.updateInfo(USER_DATA[YELP_DATA[0][0]]);
+        this.updateInfo(USER_DATA[YELP_DATA[0][0]]);
     },
     updateInfo: function(data) {
         data = Object.entries(data);
