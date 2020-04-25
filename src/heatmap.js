@@ -7,12 +7,13 @@ const HeatMap = {
     times: new Array(24).fill(1),
     days: new Array(7).fill(1),
     timeLabels: [
-        "4a",
-        "8a",
-        "12a",
-        "16p",
-        "20p",
-        "24p"
+        "Time",
+        "04:00",
+        "08:00",
+        "12:00",
+        "16:00",
+        "20:00",
+        "24:00"
     ],
     dayLabels: [
         "Su",
@@ -29,7 +30,7 @@ const HeatMap = {
     tooltip: {},
     load: function() {
 
-        const container = document.querySelector(".heatmap");
+        let container = document.querySelector(".heatmap");
         this.width = container.getBoundingClientRect().width;
         this.height = container.getBoundingClientRect().height;
         this.times = this.times.map((value, index) => index);
@@ -41,22 +42,28 @@ const HeatMap = {
             .padding(0.01)
 
         this.yScale = d3.scaleBand()
-            .range([this.height - 30, 0])
+            .range([this.height - (30 + 58), 0])
             .domain(this.days)
             .padding(0.01);
 
         this.colorScale = d3.scaleLinear()
-            .range(["#f2f7f6", "#0494e9"])
-            .domain([1, 50]);
+            .range(["#f6faaa", "#F46D43", "#9E0142"])
+            .domain([1, 25, 50]);
 
         this.tooltip = d3.select("body")
             .append("div")
             .attr("class", "tooltip");
-        
-        this.svg = d3.select(".heatmap")
+
+        container = d3.select(".heatmap");
+
+        container.append("h3")
+            .html("Day-Time Checkins")
+            .style("padding-left", "10px");
+
+        this.svg = container
             .append("svg")
             .attr("width", this.width)
-            .attr("height", this.height)
+            .attr("height", this.height - 58)
             .append("g")
             .attr("transform", "translate(20, 20)");
         
@@ -64,7 +71,7 @@ const HeatMap = {
             .attr("transform", "translate(0, 0)")
             .call(
                 d3.axisTop(this.xScale).tickFormat((d) => {
-                    if (d % 4 == 0) return this.timeLabels[parseInt(d / 4) - 1];
+                    if (d % 4 == 0) return this.timeLabels[parseInt(d / 4)];
                 })
                 .tickSize(1)
             );

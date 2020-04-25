@@ -4,7 +4,7 @@ const User = {
     svg: {},
     width: 300,
     height: 300,
-    padding: 30,
+    padding: 30 + 58,
     labels: [
         "Yelp Age",
         "Reviews",
@@ -21,36 +21,41 @@ const User = {
     usefulScale: {},
     yScale: {},
     xScale: {},
+    colorScale: {},
     load: function() {
 
-        const container = document.querySelector(".userstat-container");
+        let container = document.querySelector(".userstat-container");
         this.width = container.getBoundingClientRect().width;
         this.height = container.getBoundingClientRect().height;
 
-        this.yelpAgeScale = d3.scaleLinear()
-            .range([1, this.height - this.padding])
+        this.yelpAgeScale = d3.scalePow()
+            .range([5, this.height - this.padding])
             .domain([3.85, 10.81]);
-        
-        this.reviewsScale = d3.scaleLinear()
-            .range([1, this.height - this.padding])
+
+        this.reviewsScale = d3.scalePow()
+            .exponent(1/3)
+            .range([5, this.height - this.padding])
             .domain([6.07, 633.42]);
 
-        this.coolnessScale = d3.scaleLinear()
-            .range([1, this.height - this.padding])
+        this.coolnessScale = d3.scalePow()
+            .exponent(1/3)
+            .range([5, this.height - this.padding])
             .domain([0.75, 5518]);
-        
-        this.fansScale = d3.scaleLinear()
+
+        this.fansScale = d3.scalePow()
+            .exponent(1/3)
             .range([0, this.height - this.padding])
             .domain([0, 89.75]);
-        
-        this.starsScale = d3.scaleLinear()
+
+        this.starsScale = d3.scalePow()
             .range([1, this.height - this.padding])
             .domain([1.57, 4.72]);
-        
-        this.usefulScale = d3.scaleLinear()
-            .range([1, this.height - this.padding])
+
+        this.usefulScale = d3.scalePow()
+            .exponent(1/3)
+            .range([5, this.height - this.padding])
             .domain([3, 6487.5]);
-        
+
         this.yScale = d3.scaleLinear()
             .range([0, this.height - this.padding])
             .domain([0, 100]);
@@ -59,8 +64,12 @@ const User = {
             .range([0, this.width - 30])
             .domain(this.labels)
             .padding(0.6);
-        
-        this.svg = d3.select(".userstat-container")
+
+        container = d3.select(".userstat-container");
+        container.append("h3")
+            .html("Restaurant Demographics");
+
+        this.svg = container
             .append("div")
             .attr("class", "userstats")
             .append("svg")
@@ -94,7 +103,8 @@ const User = {
             .attr("x", (d) => this.xScale(this.getLabel(d[0])) + 5)
             .attr("y", (d) => (this.height - this.getScaledValue(d[0], d[1]) - this.padding))
             .attr("width", this.xScale.bandwidth())
-            .attr("height", (d) => this.getScaledValue(d[0], d[1]));
+            .attr("height", (d) => this.getScaledValue(d[0], d[1]))
+            .attr("fill", (d) => d3.interpolateGreens(this.getScaledValue(d[0], d[1]) / (this.height - this.padding)));
     },
     getLabel: function(key) {
         if (key == "Yelping_age") return "Yelp Age";

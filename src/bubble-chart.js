@@ -19,7 +19,7 @@ const BubbleChart = {
         this.width = container.getBoundingClientRect().width;
         this.height = container.getBoundingClientRect().height;
 
-        this.color = d3.scaleOrdinal(this.data.map(d => d.name), d3.schemeCategory10);
+        this.color = d3.scaleOrdinal(this.data.map(d => d.name), [...d3.schemeSet1, ...d3.schemeCategory10, ...d3.schemeTableau10, ...d3.schemeSet3]);
         this.format = d3.format(",d");
                     
         this.root = this.pack(this.data);
@@ -59,10 +59,26 @@ const BubbleChart = {
                 this.reset();
             });
         
-        leaf.on("mouseover", (d) => {
+        leaf.on("mouseover", this.onMouseOver)
+            .on("mouseout", this.onMouseOut);
+
+        leaf.on("click", (d, e) => {
+            let nodes = leaf.nodes();
+
+            if ("black" == nodes[e].children[0].getAttribute("stroke")) {
+                Map.resetMarker();
+                leaf.select("circle[stroke=black]").attr("stroke", "none");
+                leaf.on("mouseover", this.onMouseOver);
+                leaf.on("mouseout", this.onMouseOut);
+            } else {
+                leaf.select("circle[stroke=black]").attr("stroke", "none");
                 Map.filterMarker(d.data.name);
-            })
-            .on("mouseout", () => Map.resetMarker());
+                nodes[e].children[0].setAttribute("stroke", "black");
+                nodes[e].children[0].setAttribute("stroke-width", "3");
+                leaf.on("mouseover", null);
+                leaf.on("mouseout", null);
+            }
+        });
     },
     pack: function(data) {
         return d3.pack()
@@ -94,6 +110,12 @@ const BubbleChart = {
 
         leaf.selectAll("text")
             .attr("fill-opacity", 0.8);
+    },
+    onMouseOver: function(d) {
+        Map.filterMarker(d.data.name);
+    },
+    onMouseOut: function(d) {
+        Map.resetMarker()
     }
 };
 
