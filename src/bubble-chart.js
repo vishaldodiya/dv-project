@@ -8,6 +8,7 @@ const BubbleChart = {
     svg: {},
     width: 0,
     height: 0,
+    margin: 58,
     data: {},
     format: {},
     root: {},
@@ -15,6 +16,8 @@ const BubbleChart = {
         this.data = this.refactorData(FOOD);
 
         const container = document.querySelector(".bubble-chart-container");
+
+        container.innerHTML = "<h3>Cuisines</h3>";
 
         this.width = container.getBoundingClientRect().width;
         this.height = container.getBoundingClientRect().height;
@@ -30,7 +33,7 @@ const BubbleChart = {
             .attr("font-family", "sans-serif")
             .attr("text-anchor", "middle")
             .attr("width", this.width)
-            .attr("height", this.height);
+            .attr("height", this.height - this.margin);
 
         const leaf = this.svg.selectAll("g")
             .data(this.root.leaves())
@@ -84,7 +87,7 @@ const BubbleChart = {
     },
     pack: function(data) {
         return d3.pack()
-            .size([this.width - 2, this.height - 2])
+            .size([this.width - 2, this.height - this.margin])
             .padding(3)
             (d3.hierarchy({children: data})
             .sum(d => d.value));

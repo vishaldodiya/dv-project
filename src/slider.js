@@ -8,7 +8,7 @@ const Slider = {
     svg: {},
     data: ["All", "$", "$$", "$$$", "$$$$"],
     height: 200,
-    margin: 75,
+    margin: 150,
     load: function() {
 
         const container = document.querySelector('.slider-vertical');
@@ -32,13 +32,16 @@ const Slider = {
             });
         
         const gVertical = d3.select('.slider-vertical')
-            .append('svg')
+
+        gVertical.append("h3")
+            .html("Price Range");
+        
+        gVertical.append('svg')
             .attr('width', 100)
             .attr('height', 400)
             .append('g')
-            .attr('transform', 'translate(60,30)');
-        
-        gVertical.call(sliderVertical);
+            .attr('transform', 'translate(60,30)')
+            .call(sliderVertical);
 
         // d3.select('p#value-vertical').text(d3.format('.2%')(sliderVertical.value()));
     }

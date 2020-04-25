@@ -94,9 +94,14 @@ const User = {
         let rects = this.svg.selectAll("rect")
             .data(data);
 
+        let texts = this.svg.selectAll("text.stats")
+            .data(data);
+
         rects.exit().remove();
+        texts.exit().remove();
 
         rects.enter().append("rect");
+        texts.enter().append("text").attr("class", "stats");
 
         rects.transition()
             .duration(500)
@@ -105,6 +110,12 @@ const User = {
             .attr("width", this.xScale.bandwidth())
             .attr("height", (d) => this.getScaledValue(d[0], d[1]))
             .attr("fill", (d) => d3.interpolateGreens(this.getScaledValue(d[0], d[1]) / (this.height - this.padding)));
+
+        texts.transition()
+            .duration(500)
+            .attr("x", (d) => this.xScale(this.getLabel(d[0])) + 10)
+            .attr("y", (d) => (this.height - this.getScaledValue(d[0], d[1]) - this.padding - 2))
+            .text((d) => Math.round(d[1]));
     },
     getLabel: function(key) {
         if (key == "Yelping_age") return "Yelp Age";
