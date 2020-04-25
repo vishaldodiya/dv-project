@@ -46,7 +46,7 @@ const Restaurant = {
         
         stats.append("div")
             .attr("class", "reviews")
-            .html(data.review_count);
+            .html(`${data.review_count} Reviews`);
     
         infoContainer.select(".category").remove();
         infoContainer.append("div")

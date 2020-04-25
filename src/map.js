@@ -36,12 +36,14 @@ const Map = {
         this.svg.selectAll("path")
             .data(YELP_DATA)
             .attr("fill-opacity", (d) => (-1 !== d.categories.indexOf(category.replace(" N ", " & ")) ? 0.2 : 0))
-            .attr("stroke-opacity", (d) => (-1 !== d.categories.indexOf(category.replace(" N ", " & ")) ? 1 : 0));
+            .attr("stroke-opacity", (d) => (-1 !== d.categories.indexOf(category.replace(" N ", " & ")) ? 1 : 0))
+            .attr("visibility", (d) => (-1 !== d.categories.indexOf(category.replace(" N ", " & ")) ? "visible" : "hidden"));
     },
     resetMarker: function() {
         this.svg.selectAll("path")
             .attr("fill-opacity", (d) => 0.2)
-            .attr("stroke-opacity", (d) => 1);
+            .attr("stroke-opacity", (d) => 1)
+            .attr("visibility", "visible");
     }
 }
 
