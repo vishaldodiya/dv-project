@@ -4,6 +4,7 @@ import HeatMap from "./heatmap";
 import User from "./user";
 import bubbleChart from "./bubble-chart";
 import Slider from "./slider";
+import Recommendation from "./recommend";
 
 Map.load();
 Map.plotMarker();
@@ -12,3 +13,4 @@ bubbleChart.load();
 User.load();
 Restaurant.load();
 Slider.load();
+Recommendation.load();

@@ -19,7 +19,7 @@ const Restaurant = {
     },
     load: function() {
         Map.svg.selectAll("path")
-            .data(YELP_DATA)
+            .data(YELP_ARRAY)
             .on("mouseover", (d) => {
                 this.updateInfo(d);
                 HeatMap.updateInfo(d[1]["checkin-info"]);
@@ -27,7 +27,7 @@ const Restaurant = {
                 BubbleChart.updateInfo(d[1]["categories"]);
             });
         
-        this.updateInfo(YELP_DATA[0]);
+        this.updateInfo(YELP_ARRAY[0]);
     },
     updateInfo: function(data) {
         const infoContainer = d3.select(".info-container");
@@ -61,7 +61,7 @@ const Restaurant = {
         infoContainer.select(".address").remove();
         infoContainer.append("div")
             .attr("class", "address")
-            .html(data[1].full_address);
+            .html(`<a target="_blank" href="https://www.google.com/maps/search/?api=1&query=${data[1].full_address}">${data[1].full_address}</a>`);
     }
 }
 

@@ -2,8 +2,6 @@ import * as d3 from "d3";
 import * as slider from "d3-simple-slider";
 import Map from "./map";
 
-console.log(slider);
-
 const Slider = {
     svg: {},
     data: ["All", "$", "$$", "$$$", "$$$$"],

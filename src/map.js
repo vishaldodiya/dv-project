@@ -23,8 +23,8 @@ const Map = {
         }).addTo(this.map);
     },
     plotMarker: function() {
-        for (let i = 0; i < YELP_DATA.length; i++) {
-            L.circleMarker(L.latLng(YELP_DATA[i][1]["latitude"], YELP_DATA[i][1]["longitude"]), {
+        for (let i = 0; i < YELP_ARRAY.length; i++) {
+            L.circleMarker(L.latLng(YELP_ARRAY[i][1]["latitude"], YELP_ARRAY[i][1]["longitude"]), {
                 pane: "overlayPane",
                 radius: 5,
                 fillColor: "#ff0000",
@@ -37,7 +37,7 @@ const Map = {
     },
     filterMarker: function() {
         this.svg.selectAll("path")
-            .data(YELP_DATA)
+            .data(YELP_ARRAY)
             .attr("fill-opacity", (d) => (this.shouldShow(d) ? 0.2 : 0))
             .attr("stroke-opacity", (d) => (this.shouldShow(d) ? 1 : 0))
             .attr("visibility", (d) => (this.shouldShow(d) ? "visible" : "hidden"));

@@ -1,5 +1,6 @@
 import * as d3 from "d3";
 import Map from "./map";
+import Recommendation from "./recommend";
 
 const BubbleChart = {
     color: {},
@@ -117,6 +118,7 @@ const BubbleChart = {
             .attr("fill-opacity", 0.8);
     },
     onMouseOver: function(d) {
+        Recommendation.updateInfo(d.data.name);
         Map.filter.category = d.data.name;
         Map.filterMarker();
     },
