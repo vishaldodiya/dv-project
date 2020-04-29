@@ -74,7 +74,7 @@ const User = {
             .attr("class", "userstats")
             .append("svg")
             .attr("width", this.width)
-            .attr("height", this.height)
+            .attr("height", this.height - this.padding + 20)
             .append("g");
         
         this.svg.append("g")
@@ -89,7 +89,10 @@ const User = {
         this.updateInfo(USER_DATA[YELP_ARRAY[0][0]]);
     },
     updateInfo: function(data) {
+        console.log(data);
         data = Object.entries(data);
+
+
 
         let rects = this.svg.selectAll("rect")
             .data(data);

@@ -23,7 +23,7 @@ const BubbleChart = {
         this.width = container.getBoundingClientRect().width;
         this.height = container.getBoundingClientRect().height;
 
-        this.color = d3.scaleOrdinal(this.data.map(d => d.name), [...d3.schemeSet1, ...d3.schemeCategory10, ...d3.schemeTableau10, ...d3.schemeSet3]);
+        this.color = d3.scaleOrdinal(this.data.map(d => d.name), [...d3.schemeSet3, ...d3.schemeSet1, ...d3.schemeCategory10, ...d3.schemeTableau10]);
         this.format = d3.format(",d");
                     
         this.root = this.pack(this.data);
@@ -77,6 +77,7 @@ const BubbleChart = {
                 leaf.on("mouseout", this.onMouseOut);
             } else {
                 leaf.select("circle[stroke=black]").attr("stroke", "none");
+                Recommendation.updateInfo(d.data.name);
                 Map.filter.category = d.data.name;
                 Map.filterMarker();
                 nodes[e].children[0].setAttribute("stroke", "black");

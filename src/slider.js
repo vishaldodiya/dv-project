@@ -6,7 +6,7 @@ const Slider = {
     svg: {},
     data: ["All", "$", "$$", "$$$", "$$$$"],
     height: 200,
-    margin: 150,
+    margin: 125,
     load: function() {
 
         const container = document.querySelector('.slider-vertical');
@@ -36,7 +36,7 @@ const Slider = {
         
         gVertical.append('svg')
             .attr('width', 100)
-            .attr('height', 400)
+            .attr('height', this.height - 80)
             .append('g')
             .attr('transform', 'translate(60,30)')
             .call(sliderVertical);

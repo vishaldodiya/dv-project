@@ -1,8 +1,13 @@
 import * as d3 from "d3";
 import Slider from "./slider";
 import Restaurant from "./restaurant";
+import BubbleChart from "./bubble-chart";
+import User from "./user";
+import HeatMap from "./heatmap";
 
 const Recommendation = {
+    entries: {},
+    color: {},
     load: function() {
         this.updateInfo("Italian");
     },
@@ -11,7 +16,10 @@ const Recommendation = {
         const data = RECOMMEND.filter((d) => d.suggested_category == category);
         const categories = data[0]["recommended_categories"];
         const restaurants = data[0]["recommended_restaurants"];
+        this.entries = Object.entries(restaurants);
         const recommendation = d3.select(".recommendation");
+
+        this.color = d3.scaleOrdinal(categories, [...d3.schemeSet1]);
 
         recommendation.html(`<h2>Recommendation for: ${category}</h2>`);
 
@@ -26,6 +34,7 @@ const Recommendation = {
         containers.append("div")
             .attr("class", "category")
             .append("span")
+            .style("background-color", (d) => BubbleChart.color(d))
             .html((d) => d);
         
         const cards = containers.selectAll(".card")
@@ -34,6 +43,17 @@ const Recommendation = {
             .append("div")
             .attr("class", "card")
             .html(d => this.getMarkup(d));
+        
+        cards.on("mouseover", (d) => {
+            const data = YELP_DATA[d];
+            Restaurant.updateInfo([d, data]);
+            HeatMap.updateInfo(data["checkin-info"]);
+            User.updateInfo(USER_DATA[d]);
+            BubbleChart.updateInfo(data["categories"]);
+        })
+        .on("mouseout", (d) => {
+            BubbleChart.reset();
+        });
 
     },
     getMarkup: function(id) {

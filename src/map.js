@@ -1,5 +1,7 @@
 import L from "leaflet";
 import * as d3 from "d3";
+import Recommendation from "./recommend";
+import BubbleChart from "./bubble-chart";
 
 const Map = {
     map: {},
@@ -38,14 +40,29 @@ const Map = {
     filterMarker: function() {
         this.svg.selectAll("path")
             .data(YELP_ARRAY)
-            .attr("fill-opacity", (d) => (this.shouldShow(d) ? 0.2 : 0))
-            .attr("stroke-opacity", (d) => (this.shouldShow(d) ? 1 : 0))
-            .attr("visibility", (d) => (this.shouldShow(d) ? "visible" : "hidden"));
+            .attr("fill-opacity", (d) => {
+                const shouldShow = this.shouldShow(d);
+                const isRecommended = this.isRecommended(d);
+
+                if (shouldShow || isRecommended.length > 0) {
+                    return isRecommended.length > 0 ? 1 : 0.4;
+                } else {
+                    return 0;
+                }
+            })
+            .attr("stroke-opacity", (d) => ((this.shouldShow(d) || this.isRecommended(d).length > 0) ? 1 : 0))
+            .attr("fill", (d) => ((this.isRecommended(d).length > 0) ? BubbleChart.color(this.isRecommended(d)[0][0]) : "#ff0000"))
+            .attr("stroke", (d) => ((this.isRecommended(d).length > 0) ? "#000000" : "#3388ff"))
+            .attr("stroke-width", (d) => (this.isRecommended(d).length > 0) ? 1.5 : 1)
+            .attr("visibility", (d) => ((this.shouldShow(d) || this.isRecommended(d).length > 0) ? "visible" : "hidden"));
     },
     resetMarker: function() {
         this.svg.selectAll("path")
-            .attr("fill-opacity", (d) => 0.2)
+            .attr("fill-opacity", (d) => 0.4)
             .attr("stroke-opacity", (d) => 1)
+            .attr("fill", "#ff0000")
+            .attr("stroke", "#3388ff")
+            .attr("stroke-width", 1)
             .attr("visibility", "visible");
     },
     shouldShow: function(data) {
@@ -61,6 +78,9 @@ const Map = {
         } else {
             return true;
         }
+    },
+    isRecommended: function(data) {
+        return Recommendation.entries.filter(d => -1 !== d[1].indexOf(data[0]));
     }
 }
 
