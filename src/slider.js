@@ -22,7 +22,7 @@ const Slider = {
             .on("onchange", val => {
                 if (val == 0) {
                     Map.filter.price = 0;
-                    Map.resetMarker();
+                    Map.filterMarker();
                     return;
                 }
                 Map.filter.price = val;

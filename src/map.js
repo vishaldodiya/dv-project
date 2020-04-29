@@ -45,7 +45,7 @@ const Map = {
                 const isRecommended = this.isRecommended(d);
 
                 if (shouldShow || isRecommended.length > 0) {
-                    return isRecommended.length > 0 ? 1 : 0.4;
+                    return (isRecommended.length > 0) ? 1 : 0.2;
                 } else {
                     return 0;
                 }
@@ -58,7 +58,7 @@ const Map = {
     },
     resetMarker: function() {
         this.svg.selectAll("path")
-            .attr("fill-opacity", (d) => 0.4)
+            .attr("fill-opacity", (d) => 0.2)
             .attr("stroke-opacity", (d) => 1)
             .attr("fill", "#ff0000")
             .attr("stroke", "#3388ff")
