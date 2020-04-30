@@ -126,6 +126,26 @@ const BubbleChart = {
     onMouseOut: function(d) {
         Map.filter.category = "";
         Map.filterMarker();
+    },
+    onClick: function(d, e) {
+        let nodes = leaf.nodes();
+
+        if ("black" == nodes[e].children[0].getAttribute("stroke")) {
+            Map.filter.category = "";
+            Map.resetMarker();
+            leaf.select("circle[stroke=black]").attr("stroke", "none");
+            leaf.on("mouseover", this.onMouseOver);
+            leaf.on("mouseout", this.onMouseOut);
+        } else {
+            leaf.select("circle[stroke=black]").attr("stroke", "none");
+            Recommendation.updateInfo(d.data.name);
+            Map.filter.category = d.data.name;
+            Map.filterMarker();
+            nodes[e].children[0].setAttribute("stroke", "black");
+            nodes[e].children[0].setAttribute("stroke-width", "3");
+            leaf.on("mouseover", null);
+            leaf.on("mouseout", null);
+        }
     }
 };
 

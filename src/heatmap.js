@@ -86,16 +86,14 @@ const HeatMap = {
         this.updateInfo(YELP_ARRAY[0][1]["checkin-info"]);
     },
     updateInfo: function(data) {
-    
         data = JSON.parse(data);
         data = Object.entries(data);
 
-        const rects = this.svg.selectAll("rect")
-            .data(data);
+        const rects = this.svg.selectAll("rect");
         
         rects.exit().remove();
 
-        rects.enter().append("rect");
+        rects.data(data).enter().append("rect");
 
         rects.attr("x", (d) => this.xScale(this.getHour(d[0])))
             .attr("y", (d) => this.yScale(6 - this.getDay(d[0])))

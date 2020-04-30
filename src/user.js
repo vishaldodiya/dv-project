@@ -89,10 +89,7 @@ const User = {
         this.updateInfo(USER_DATA[YELP_ARRAY[0][0]]);
     },
     updateInfo: function(data) {
-        console.log(data);
         data = Object.entries(data);
-
-
 
         let rects = this.svg.selectAll("rect")
             .data(data);

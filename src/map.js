@@ -2,10 +2,14 @@ import L from "leaflet";
 import * as d3 from "d3";
 import Recommendation from "./recommend";
 import BubbleChart from "./bubble-chart";
+import Restaurant from "./restaurant";
+import HeatMap from "./heatmap";
+import User from "./user";
 
 const Map = {
     map: {},
     svg: {},
+    persist: null,
     filter: {
         "category": "",
         "price": 0
@@ -36,6 +40,23 @@ const Map = {
         }
 
         this.svg = d3.select("#map").select("svg").attr("class", "map_svg");
+
+        const paths = this.svg.selectAll("path");
+
+        paths.on("click", (d, e) => {
+            let nodes = paths.nodes();
+            Map.persist = d;
+
+            if ("7" == nodes[e].getAttribute("stroke-width")) {
+                this.svg.select("path[stroke-width='7']").attr("stroke-width", 1);
+                paths.on("mouseover", this.onMouseOver);
+            } else {
+                this.svg.select("path[stroke-width='7']").attr("stroke-width", 1);
+                nodes[e].setAttribute("stroke-width", 7);
+                paths.on("mouseover", null);
+            }
+        })
+        .on("mouseover", (d) => this.onMouseOver(d));
     },
     filterMarker: function() {
         this.svg.selectAll("path")
@@ -81,6 +102,12 @@ const Map = {
     },
     isRecommended: function(data) {
         return Recommendation.entries.filter(d => -1 !== d[1].indexOf(data[0]));
+    },
+    onMouseOver: function(data) {
+        Restaurant.updateInfo(data);
+        HeatMap.updateInfo(data[1]["checkin-info"]);
+        User.updateInfo(USER_DATA[data[0]]);
+        BubbleChart.updateInfo(data[1]["categories"]);
     }
 }
 

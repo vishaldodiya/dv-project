@@ -4,6 +4,7 @@ import Restaurant from "./restaurant";
 import BubbleChart from "./bubble-chart";
 import User from "./user";
 import HeatMap from "./heatmap";
+import Map from "./map";
 
 const Recommendation = {
     entries: {},
@@ -53,6 +54,13 @@ const Recommendation = {
         })
         .on("mouseout", (d) => {
             BubbleChart.reset();
+            if (null !== Map.persist) {
+                const data = Map.persist;
+                Restaurant.updateInfo(data);
+                HeatMap.updateInfo(data[1]["checkin-info"]);
+                User.updateInfo(USER_DATA[data[0]]);
+                BubbleChart.updateInfo(data[1]["categories"]);
+            }
         });
 
     },
