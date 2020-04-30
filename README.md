@@ -1,14 +1,14 @@
 Final Project - Yelp Dataset Visualization  
 ===
 
-[Project Link]( https://vishaldodiya.github.io/dv-project/)
+[Demo Link]( https://vishaldodiya.github.io/dv-project/)
 
 ### Team Members
-Akshay Shah {acshah4@asu.edu}
-Chirag Bhansali {cbhansal@asu.edu}
-Prajeet Bhavsar {pdbhavsa@asu.edu}
-Smarita Sharma {sshar173@asu.edu}
-Vishal Dodiya {vmdodiya@asu.edu}
+* Akshay Shah - cshah4@asu.edu
+* Chirag Bhansali - cbhansal@asu.edu
+* Prajeet Bhavsar - pdbhavsa@asu.edu
+* Smarita Sharma - sshar173@asu.edu
+* Vishal Dodiya - vmdodiya@asu.edu
 
 In this project, we visualized restaurants data in Phoenix. We want to provide a better user experience for selecting restaurants, recommending them cuisine/ category which matches closely with the selected one. Show user related details for a restaurant and a bubble chart for depicting the category/ cuisines present in the region.
 
