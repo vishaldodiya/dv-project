@@ -50,10 +50,12 @@ const Map = {
             if ("7" == nodes[e].getAttribute("stroke-width")) {
                 this.svg.select("path[stroke-width='7']").attr("stroke-width", 1);
                 paths.on("mouseover", this.onMouseOver);
+                Map.persist = null;
             } else {
                 this.svg.select("path[stroke-width='7']").attr("stroke-width", 1);
                 nodes[e].setAttribute("stroke-width", 7);
                 paths.on("mouseover", null);
+                this.onMouseOver(d);
             }
         })
         .on("mouseover", (d) => this.onMouseOver(d));

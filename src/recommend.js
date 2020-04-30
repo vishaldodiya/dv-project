@@ -59,7 +59,6 @@ const Recommendation = {
                 Restaurant.updateInfo(data);
                 HeatMap.updateInfo(data[1]["checkin-info"]);
                 User.updateInfo(USER_DATA[data[0]]);
-                BubbleChart.updateInfo(data[1]["categories"]);
             }
         });
 
