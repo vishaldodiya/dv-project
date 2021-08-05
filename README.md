@@ -4,7 +4,7 @@ Final Project - Yelp Dataset Visualization
 [Demo Link]( https://vishaldodiya.github.io/dv-project/)
 
 ### Team Members
-* Akshay Shah - cshah4@asu.edu
+* Akshay Shah - acshah4@asu.edu
 * Chirag Bhansali - cbhansal@asu.edu
 * Prajeet Bhavsar - pdbhavsa@asu.edu
 * Smarita Sharma - sshar173@asu.edu
